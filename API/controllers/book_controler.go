@@ -148,3 +148,30 @@ func FinishReading() gin.HandlerFunc {
 
 	}
 }
+
+func DeleteBook() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		bookID := c.Param("bookID")
+		defer cancel()
+
+		objId, _ := primitive.ObjectIDFromHex(bookID)
+
+		result, err := bookCollection.DeleteOne(ctx, bson.M{"id": objId})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, responses.BookResponse{Status: http.StatusInternalServerError, Message: "error", Data: map[string]interface{}{"data": err.Error()}})
+			return
+		}
+
+		if result.DeletedCount < 1 {
+			c.JSON(http.StatusNotFound,
+				responses.BookResponse{Status: http.StatusNotFound, Message: "error", Data: map[string]interface{}{"data": "User with specified ID not found!"}},
+			)
+			return
+		}
+
+		c.JSON(http.StatusOK,
+			responses.BookResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": "User successfully deleted!"}},
+		)
+	}
+}

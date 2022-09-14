@@ -10,4 +10,5 @@ func Routes(router *gin.Engine) {
 	router.GET("/books/:bookID", controllers.GetBook())        // Get book by ID
 	router.PUT("/read/:bookID", controllers.StartReading())    // Start reading a book
 	router.PUT("/finish/:bookID", controllers.FinishReading()) // Finish reading a book
+	router.DELETE("/books/:bookID", controllers.DeleteBook())
 }
