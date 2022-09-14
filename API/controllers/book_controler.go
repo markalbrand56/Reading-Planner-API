@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-var bookCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
+var bookCollection *mongo.Collection = configs.GetCollection(configs.DB, "books")
 var validate = validator.New()
 
 func AddBook() gin.HandlerFunc {
@@ -38,7 +38,7 @@ func AddBook() gin.HandlerFunc {
 			Title:    book.Title,
 			Author:   book.Author,
 			Progress: book.Progress,
-			Volume:   book.Progress,
+			Volume:   book.Volume,
 		}
 
 		result, err := bookCollection.InsertOne(ctx, newBook)
