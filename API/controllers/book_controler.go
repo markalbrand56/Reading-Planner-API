@@ -165,13 +165,13 @@ func DeleteBook() gin.HandlerFunc {
 
 		if result.DeletedCount < 1 {
 			c.JSON(http.StatusNotFound,
-				responses.BookResponse{Status: http.StatusNotFound, Message: "error", Data: map[string]interface{}{"data": "User with specified ID not found!"}},
+				responses.BookResponse{Status: http.StatusNotFound, Message: "error", Data: map[string]interface{}{"data": "Book with specified ID not found!"}},
 			)
 			return
 		}
 
 		c.JSON(http.StatusOK,
-			responses.BookResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": "User successfully deleted!"}},
+			responses.BookResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": "Book successfully deleted!"}},
 		)
 	}
 }
