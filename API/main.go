@@ -1,6 +1,7 @@
 package main
 
 import (
+	"API/configs"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -113,6 +114,8 @@ func main() {
 	router.GET("/books/:id", bookById)     // Search book by ID
 	router.PATCH("/read", startReading)    // Start reading a book
 	router.PATCH("/finish", finishReading) // Start reading a book
+
+	configs.ConnectDB()
 
 	router.Run("localhost:8080")
 }
