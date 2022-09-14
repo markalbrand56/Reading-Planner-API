@@ -175,3 +175,33 @@ func DeleteBook() gin.HandlerFunc {
 		)
 	}
 }
+
+func GetAllBooks() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		var books []models.Book
+		defer cancel()
+
+		results, err := bookCollection.Find(ctx, bson.M{})
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, responses.BookResponse{Status: http.StatusInternalServerError, Message: "error", Data: map[string]interface{}{"data": err.Error()}})
+			return
+		}
+
+		//reading from the db in an optimal way
+		defer results.Close(ctx)
+		for results.Next(ctx) {
+			var singleUser models.Book
+			if err = results.Decode(&singleUser); err != nil {
+				c.JSON(http.StatusInternalServerError, responses.BookResponse{Status: http.StatusInternalServerError, Message: "error", Data: map[string]interface{}{"data": err.Error()}})
+			}
+
+			books = append(books, singleUser)
+		}
+
+		c.JSON(http.StatusOK,
+			responses.BookResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": books}},
+		)
+	}
+}

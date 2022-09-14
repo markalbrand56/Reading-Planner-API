@@ -2,20 +2,19 @@ package main
 
 import (
 	"API/configs"
-	"errors"
+	"API/routes"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-type book struct {
+/*type book struct {
 	ID       string `json:"id"`
 	Title    string `json:"title"`
 	Author   string `json:"author"`
 	Progress string `json:"progress"`
 	Volume   string `json:"volume"`
-}
+}*/
 
-var books = []book{
+/*var books = []book{
 	{ID: "1", Title: "The Art of War", Author: "Sun Tzu", Progress: "Reading", Volume: "ND"},
 	{ID: "2", Title: "Social Engineering - The Science of Human Hacking", Author: "Christopher Hadnagy", Progress: "Not started", Volume: "ND"},
 	{ID: "3", Title: "Classroom of the Elite 2nd Year", Author: "Syougo Kinugasa", Progress: "Reading", Volume: "3"},
@@ -104,18 +103,19 @@ func finishReading(c *gin.Context) {
 	// Finish reading the book
 	book.Progress = "Finished"
 	c.IndentedJSON(http.StatusOK, book)
-}
+}*/
 
 func main() {
 	router := gin.Default()
 
-	router.GET("/books", getBooks) // Get all books
+	//router.GET("/books", getBooks) // Get all books
 	//router.POST("/books", addBook)         // Add new book
 	//router.GET("/books/:id", bookById)     // Search book by ID
 	//router.PATCH("/read", startReading)    // Start reading a book
 	//router.PATCH("/finish", finishReading) // Start reading a book
 
 	configs.ConnectDB()
+	routes.Routes(router)
 
 	router.Run("localhost:8080")
 }
