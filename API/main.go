@@ -109,9 +109,9 @@ func finishReading(c *gin.Context) {
 func main() {
 	router := gin.Default()
 
-	router.GET("/books", getBooks)         // Get all books
-	router.POST("/books", addBook)         // Add new book
-	router.GET("/books/:id", bookById)     // Search book by ID
+	router.GET("/books", getBooks) // Get all books
+	//router.POST("/books", addBook)         // Add new book
+	//router.GET("/books/:id", bookById)     // Search book by ID
 	router.PATCH("/read", startReading)    // Start reading a book
 	router.PATCH("/finish", finishReading) // Start reading a book
 
