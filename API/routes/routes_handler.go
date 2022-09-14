@@ -6,6 +6,8 @@ import (
 )
 
 func Routes(router *gin.Engine) {
-	router.POST("/books", controllers.AddBook())        // Add new book
-	router.GET("/books/:bookID", controllers.GetBook()) // Get book by ID
+	router.POST("/books", controllers.AddBook())               // Add new book
+	router.GET("/books/:bookID", controllers.GetBook())        // Get book by ID
+	router.PUT("/read/:bookID", controllers.StartReading())    // Start reading a book
+	router.PUT("/finish/:bookID", controllers.FinishReading()) // Finish reading a book
 }
