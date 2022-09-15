@@ -17,4 +17,4 @@
 
 # Misc
 *.json
-.env
+!/.env
